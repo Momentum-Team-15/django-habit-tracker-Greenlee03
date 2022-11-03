@@ -15,8 +15,8 @@ import os
 import environ
 
 env = environ.Env(
-    DEBUG=(bool, False)
-    # RENDER=(bool, False)
+    DEBUG=(bool, False),
+    RENDER=(bool, False),
 )
 environ.Env.read_env()
 
@@ -56,6 +56,8 @@ INSTALLED_APPS = [
     'django_extensions',
     'habit',
 ]
+REGISTRATION_AUTO_LOGIN = True
+LOGIN_REDIRECT_URL = "/account/register"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
