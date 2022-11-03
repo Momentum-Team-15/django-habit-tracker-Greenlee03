@@ -11,6 +11,7 @@ class Habit(models.Model):
     name = models.CharField(max_length=50)
     goal = models.IntegerField()
     day = models.ForeignKey('Day', blank=True, null=True, on_delete=models.CASCADE, related_name='habits')
+    # user = models.ForeignKey('User', blank=True, null=True, on_delete=models.CASCADE, related_name='habits')
 
     def __str__(self):
             return f"{self.name}, {self.goal}"
