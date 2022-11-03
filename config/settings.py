@@ -18,6 +18,7 @@ env = environ.Env(
     DEBUG=(bool, False),
     RENDER=(bool, False),
 )
+
 environ.Env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -40,7 +41,6 @@ if env("RENDER"):
     DJANGO_SUPERUSER_USERNAME=env("DJANGO_SUPERUSER_USERNAME")
     DJANGO_SUPERUSER_PASSWORD=env("DJANGO_SUPERUSER_PASSWORD")
     DJANGO_SUPERUSER_EMAIL=env("DJANGO_SUPERUSER_EMAIL")
-
 
 # Application definition
 
