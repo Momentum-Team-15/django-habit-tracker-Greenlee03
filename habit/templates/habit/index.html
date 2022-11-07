@@ -1,6 +1,17 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<h1>
+    This is the Heading for my habit tracker main page
+</h1>
 
+<header>
+    <h3>Days of the week: </h3>
+    {% for day in days %}
+    <a href="{% url 'day_habits' day.slug %}">{{ day.slug }}</a>
+    {% endfor %}
+</header>
 
+<h2>Todays Habits: </h2>
+<h2>Habit Records(): </h2>
 {% endblock %}
