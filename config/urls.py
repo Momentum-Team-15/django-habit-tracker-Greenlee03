@@ -18,7 +18,9 @@ from django.urls import path, include
 from habit import views
 
 urlpatterns = [
+    path('',include('habit.urls')),
     path('admin/', admin.site.urls),
     path('accounts/', include('registration.backends.simple.urls')),
-    path('',include('habit.urls')),
+    path('accounts/login/', views.login, name='login'),
+    path('accounts/logout/', views.logout, name='logout'),
 ]

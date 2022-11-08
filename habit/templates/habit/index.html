@@ -1,6 +1,23 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<header>
+    <a href="{% url 'logout' %}">Logout</a>
+</header>
 
+<h1>
+    Welcome, {{ user.username }}, to your weekly Habit Tracker
+</h1>
 
+<h3>Habits for: 
+    {% for day in days %}
+    <a href="{% url 'daily_habits' day.slug %}">{{ day.slug }}</a>
+    {% endfor %}
+</h3>
+
+<h2>Completed Habits: </h2>
+
+<h2>Todays Habits: </h2>
+
+<a href="{% url 'add_habit' %}">Add a habit</a>
 {% endblock %}

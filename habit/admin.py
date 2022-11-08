@@ -5,3 +5,4 @@ from .models import User, Habit, Day
 admin.site.register(User)
 admin.site.register(Habit)
 admin.site.register(Day)
+# admin.site.register(Record)

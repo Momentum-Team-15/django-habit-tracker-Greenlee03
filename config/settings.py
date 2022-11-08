@@ -58,7 +58,8 @@ INSTALLED_APPS = [
     'habit',
 ]
 REGISTRATION_AUTO_LOGIN = True
-LOGIN_REDIRECT_URL = "/account/register"
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
