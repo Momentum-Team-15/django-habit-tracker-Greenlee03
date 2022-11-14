@@ -5,13 +5,24 @@
     <a href="{% url 'logout' %}">Logout</a>
 </header>
 
-<h3><a href="{% url 'home' %}">Back to Today</a></h3>
-<p> Your {{ day.slug }} Habits:</p>
+<h1>{{ day.slug }}</h1>
+
+<h3>Habits for: 
+    {% for day in days %}
+    <a href="{% url 'daily_habits' day.slug %}">{{ day.slug }}</a>
+    {% endfor %}
+</h3>
+
+<h2><a href="{% url 'home' %}">Back to All Habits</a></h2>
+
 <hr>
 {% for habit in habits %}
-<p>Habit: {{ habit.name }}</p>
-<p>Goal: {{ habit.goal }} {{ habit.metric }}</p>
-<br>
+    <p><a href="{% url 'habit_info' pk=habitpk %}">
+        Habit: {{ habit.name }}
+        <br>
+        Goal: {{ habit.goal }} {{ habit.metric }}
+    </a></p>
+    <br>
 {% endfor %}
 
 {% endblock %}

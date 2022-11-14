@@ -15,9 +15,15 @@
     {% endfor %}
 </h3>
 
-<h2>Completed Habits: </h2>
-
-<h2>Todays Habits: </h2>
+<h2>All Habits: </h2>
+    {% for habit in habits %}
+    <p><a href="{% url 'habit_info' pk=habit.pk %}">
+        Habit: {{ habit.name }}
+        <br>
+        Goal: {{ habit.goal }} {{ habit.metric }}
+    </a></p>
+    <br>
+    {% endfor %}
 
 <a href="{% url 'add_habit' %}">Add a habit</a>
 {% endblock %}

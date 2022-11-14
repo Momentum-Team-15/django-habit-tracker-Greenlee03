@@ -55,7 +55,10 @@ INSTALLED_APPS = [
     'whitenoise.runserver_nostatic',
     'django.contrib.staticfiles',
     'django_extensions',
+    'rest_framework',
     'habit',
+    'multiselectfield',
+    'api',
 ]
 REGISTRATION_AUTO_LOGIN = True
 LOGIN_REDIRECT_URL = "home"
@@ -155,3 +158,11 @@ if not DEBUG:
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 AUTH_USER_MODEL = "habit.User"
+
+#for DRF
+
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': [
+        'rest_framework.permissions.IsAuthenticatedOrReadOnly',
+    ]
+}

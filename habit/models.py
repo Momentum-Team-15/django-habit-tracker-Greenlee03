@@ -1,9 +1,9 @@
 from django.conf import settings
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-from django.db.models.fields import DateTimeField
-# from djchoices import DjangoChoices, ChoiceItem
+from django.db.models.fields import DateField
 from multiselectfield import MultiSelectField
+
 # Create your models here.
 
 class User(AbstractUser):
@@ -20,7 +20,7 @@ DAYS_OF_THE_WEEK = (
 )
 
 class Day(models.Model):
-    days = models.CharField(max_length=1, choices=(DAYS_OF_THE_WEEK))
+    days = MultiSelectField(max_length=1, choices=(DAYS_OF_THE_WEEK))
     slug = models.SlugField(max_length=50)
 
     def __str__(self):
@@ -31,15 +31,18 @@ class Habit(models.Model):
     goal = models.IntegerField()
     metric = models.CharField(max_length=50, blank=True, null=True)
     habit_days = models.ManyToManyField(Day)
-    user = models.ForeignKey('User', blank=True, null=True, on_delete=models.CASCADE, related_name='habits')
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.CASCADE, related_name='habits')
 
     def __str__(self):
             return f"{self.name}, {self.goal}, {self.metric}"
 
+class Test(models.Model):
+    pass
+
 class DailyRecord(models.Model):
-    habit = models.ForeignKey('Habit', on_delete=models.CASCADE, related_name='records')
-    date_recorded = models.DateField(auto_now_add=True, blank=True, null=True)
-    amount = models.IntegerField()
+    habit = models.ForeignKey(Habit, blank=True, null=True, on_delete=models.CASCADE, related_name='records')
+    date_recorded = models.DateField(blank=True, null=True)
+    amount = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return f"Record for {self.habit.name}"

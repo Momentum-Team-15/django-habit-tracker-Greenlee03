@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import User, Habit, Day
+from .models import User, Habit, Day, DailyRecord
+from habit.forms import HabitForm, DailyRecordForm, EditDailyRecordForm
 
 # Create your views here.
 @login_required
@@ -12,14 +13,17 @@ def index(request):
 def day(request, slug):
     day = Day.objects.get(slug=slug)
     habits = Habit.objects.filter(habit_days__in=[day])
+    days = Day.objects.all()
     
-    return render(request, 'habit/daily_habits.html', {'day':day, 'habits':habits})
+    return render(request, 'habit/daily_habits.html', {'day':day, 'habits':habits, 'days':days})
 
 def habit_info(request, pk):
     habit = Habit.objects.get(pk=pk)
-    return render(request, 'habit/habit_info.html', {'habit':habit})
+    days = Day.objects.all()
+    return render(request, 'habit/habit_info.html', {'habit':habit, 'days':days})
 
 def add_habit(request):
+    days = Day.objects.all()
     if request.method == 'POST':
         form = HabitForm(request.POST, request.FILES)
         if form.is_valid():
@@ -27,10 +31,11 @@ def add_habit(request):
             return redirect('home')
     else:
         form = HabitForm()
-    return render(request, 'habit/create_habit.html', {'form': form})
+    return render(request, 'habit/add_habit.html', {'form': form, 'days': days})
 
-def edit_habit(request):
-    habit = get_object_or_404(Habit, pk=habit.pk)
+def edit_habit(request, habitpk):
+    days = Day.objects.all()
+    habit = get_object_or_404(Habit, pk=habitpk)
     if request.method == 'POST':
         form = HabitForm(request.POST, request.FILES, instance=habit)
         if form.is_valid():
@@ -39,16 +44,18 @@ def edit_habit(request):
             return redirect('habit_info', pk=habit.pk)
     else:
         form = HabitForm(instance=habit)
-    return render(request, 'habit/edit_habit.html', {'form':form})
+    return render(request, 'habit/edit_habit.html', {'form':form, 'days':days})
 
-def delete_habit(request):
-    habit = get_object_or_404(Habit, pk=habit.pk)
+def delete_habit(request, habitpk):
+    days = Day.objects.all()
+    habit = get_object_or_404(Habit, pk=habitpk)
     if request.method == 'POST':
         habit.delete()
         return redirect('home')
-    return render(request, 'habit/delete_habit.html')
+    return render(request, 'habit/delete_habit.html', {'days': days})
 
 def add_dailyrecord(request):
+    days = Day.objects.all()
     if request.method == 'POST':
         form = DailyRecordForm(request.POST, request.FILES)
         if form.is_valid():
@@ -56,10 +63,10 @@ def add_dailyrecord(request):
             return redirect('home')
     else: 
         form = DailyRecordForm()
-    return render(request, 'habit/create_dailyrecord.html', {'form': form})
+    return render(request, 'habit/add_dailyrecord.html', {'form': form, 'days': days})
 
-def edit_dailyrecord(request):
-    dailyrecord = DailyRecord.objects.get(pk=habit.pk)
+def edit_dailyrecord(request, habitpk, dailyrecordpk):
+    dailyrecord = DailyRecord.objects.get(pk=habitpk)
     if request.method == "POST":
         form = EditDailyRecordForm(request.POST, request.FILES, instance=dailyrecord)
         if form.is_valid():

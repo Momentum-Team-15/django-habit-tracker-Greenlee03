@@ -12,9 +12,10 @@ django-registration-redux = "*"
 whitenoise = "*"
 gunicorn = "*"
 psycopg2-binary = "*"
-django-choices = "*"
 django-multiselectfield = "*"
+django-choices = "*"
 ipython = "*"
+djangorestframework = "*"
 
 [dev-packages]
 

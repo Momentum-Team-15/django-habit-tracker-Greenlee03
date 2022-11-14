@@ -1,1 +1,39 @@
-<!-- put records in here -->
+{% extends 'base.html' %}
+
+{% block content %}
+
+<header>
+    <a href="{% url 'logout' %}">Logout</a>
+</header>
+
+<h1> Habit {{ habit.pk }}
+
+<h3>Habits for: 
+    {% for day in days %}
+    <a href="{% url 'daily_habits' day.slug %}">{{ day.slug }}</a>
+    {% endfor %}
+</h3>
+
+<h2><a href="{% url 'home' %}">Back to All Habits</a></h2>
+
+<p>{{ habit.name }} {{ habit.goal }} {{ habit.metric }}</p>
+
+<p>All Records:</p>
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Amount</th>
+    </tr>
+    {% for record in Habit.records.all %}
+        <tr>
+            <td>{{ record.date_recorded }}</td> <td>{{ record.amount }} {{ habit.metric }}</td>
+        </tr>
+    {% endfor %}
+    
+</table>
+    <p><a href="{% url 'add_dailyrecord' %}">Add a daily record</a></p>
+        
+    <p><a href="{% url 'edit_habit' habitpk=habit.pk %}">EDIT HABIT</a></p>
+
+    <p><a href="{% url 'delete_habit' habitpk=habit.pk %}">DELETE HABIT</a></p>
+{% endblock %}
