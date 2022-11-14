@@ -40,7 +40,7 @@ class Test(models.Model):
     pass
 
 class DailyRecord(models.Model):
-    habit = models.ForeignKey(Habit, blank=True, null=True, on_delete=models.CASCADE, related_name='records')
+    habit = models.ForeignKey(Habit, on_delete=models.CASCADE, related_name='records')
     date_recorded = models.DateField(blank=True, null=True)
     amount = models.IntegerField(blank=True, null=True)
 

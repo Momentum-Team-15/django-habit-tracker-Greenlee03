@@ -16,7 +16,13 @@
 
 <h2><a href="{% url 'home' %}">Back to All Habits</a></h2>
 
-<p>{{ habit.name }} {{ habit.goal }} {{ habit.metric }}</p>
+<hr>
+
+<p>
+    Habit: {{ habit.name }}
+    <br>
+    Goal: {{ habit.goal }} {{ habit.metric }}
+</p>
 
 <p>All Records:</p>
 <table>

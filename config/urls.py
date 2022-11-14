@@ -16,14 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from habit import views
-from api import views as api_views
 
 urlpatterns = [
     path('',include('habit.urls')),
     path('admin/', admin.site.urls),
+    path("auth/", include("registration.backends.simple.urls")),
     path('accounts/', include('registration.backends.simple.urls')),
     path('accounts/login/', views.login, name='login'),
     path('accounts/logout/', views.logout, name='logout'),
     path('api-auth/', include('rest_framework.urls')),
-    path("api/habits/", api_views.HabitListView.as_view(), name="api_views")
+    path("api/", include("api.urls")),
 ]
